@@ -5,7 +5,7 @@ This program allows to generate dataset of RF passports for machine learning  by
 ## Installation
 
     1) Create virtual environment:
-        conda create -n <your_virtual_environment_name> python=3.7 -y
+        conda create -n <your_virtual_environment_name> python=3.6 -y
         conda activate <your_virtual_environment_name>
         
     2) Build virtual environment:
