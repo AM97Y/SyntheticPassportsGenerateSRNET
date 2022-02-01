@@ -1,0 +1,5 @@
+numpy==1.18.5
+scikit-build
+opencv_python==4.5.4.58
+tensorflow-gpu==1.14.0
+matplotlib==1.16.0
