@@ -32,7 +32,7 @@ IMAGE_FORMATS = [
 FONT_NAME = 'arial.ttf'
 
 
-def create_styled_text_on_gray(text: str, shape: tuple) -> np.ndarray:
+def create_text_on_gray(text: str, shape: tuple) -> np.ndarray:
     """
     Generate skeleton text on gray background (i_t from SRNet).
     text: new text for generate skeleton on gray background.
@@ -75,7 +75,7 @@ def create_styled_img(text: str, changeable_image: Image, shape: tuple) -> Image
     return: cutout image of the entity.
     """
 
-    standard_text = create_styled_text_on_gray(text, shape)
+    standard_text = create_text_on_gray(text, shape)
 
     changeable_image = np.array(changeable_image)
     # normalize the image in the range from -1 to 1.
