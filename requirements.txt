@@ -2,7 +2,11 @@ numpy==1.18.5
 scikit-build
 opencv_python==4.5.4.58
 tensorflow-gpu==1.14.0
-matplotlib==1.16.0
+matplotlib==1.5.3
 pygame==2.0.1
 Augmentor==0.2.8
-
+Faker==9.3.1
+rootpath==0.1.1
+pymorphy2==0.9.1
+pandas==1.1.5
+selenium==3.141.0
