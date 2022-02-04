@@ -21,7 +21,7 @@ This program allows to generate dataset of RF passports for machine learning  by
 
 
     1) Run script: 
-        python main.py  --input_path <input path with images + jsom markup> --output_path <output path> --count <number of augmented images> --gpu <number gpu> --model  <path with model>
+        python srnet_transform_passports.py  --input_path <input path with images + jsom markup> --output_path <output path> --count <number of augmented images> --gpu <number gpu> --model  <path with model>
 
 For more information launch `python srnet_transform_passports.py -h`. 
 
