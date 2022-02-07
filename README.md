@@ -9,7 +9,10 @@ This program allows to generate dataset of RF passports for machine learning  by
         conda activate <your_virtual_environment_name>
         
     2) Build virtual environment:
-        pip install -r requirements.txt
+        pip install -r requirements-cpu.txt
+
+    3) To support GPU calculations build virtual environment in this way: 
+        pip install -r requirements-gpu.txt
         
 ## Prerequisites
 
@@ -19,9 +22,8 @@ This program allows to generate dataset of RF passports for machine learning  by
 
 ## Generation
 
-
     1) Run script: 
-        python srnet_transform_passports.py  --input_path <input path with images + jsom markup> --output_path <output path> --count <number of augmented images> --gpu <number gpu> --model  <path with model>
+        python srnet_transform_passports.py  --input_path <input path with images + json markup> --output_path <output path> --model  <path with model> --gpu <number gpu>
 
 For more information launch `python srnet_transform_passports.py -h`. 
 
