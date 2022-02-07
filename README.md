@@ -13,6 +13,7 @@ This program allows to generate dataset of RF passports for machine learning  by
 
     3) To support GPU calculations build virtual environment in this way: 
         pip install -r requirements-gpu.txt
+       Also you need to install cuda >= 10.2
         
 ## Prerequisites
 
