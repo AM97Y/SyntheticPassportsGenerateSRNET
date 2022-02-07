@@ -98,12 +98,14 @@ def transform_passports(input_path: str, output_path: str) -> None:
 
     for file in tqdm(os.listdir(input_path)):
         if Path(file).suffix in IMAGE_FORMATS:
+            # read file
             json_file = Path(input_path) / Path(file).with_suffix('.json')
             with open(json_file, "r") as write_file:
                 markup = json.load(write_file)
 
             img = Image.open(input_path + file).convert('RGB')
 
+            # create passport content
             passport_content = PassportContent()
             passport_content.random_init()
 
@@ -118,7 +120,7 @@ def transform_passports(input_path: str, output_path: str) -> None:
                         original_image = original_image.rotate(90, expand=True)
 
                     text = passport_content.get(label_elem['label'])
-
+                    # generate styled image
                     styled_text = create_styled_img(text=text, original_image=original_image)
 
                     if rotate:
