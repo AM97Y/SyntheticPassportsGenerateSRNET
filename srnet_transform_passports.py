@@ -32,7 +32,7 @@ IMAGE_FORMATS = [
 FONT_NAME = 'arial.ttf'
 
 
-def create_text_on_gray(text: str, shape: tuple) -> np.ndarray:
+def create_skeleton_text_image(text: str, shape: tuple) -> np.ndarray:
     """
     Generate skeleton text on gray background (i_t from SRNet).
     text: new text for generate skeleton on gray background.
@@ -45,7 +45,7 @@ def create_text_on_gray(text: str, shape: tuple) -> np.ndarray:
     return render_standard_text.make_standard_text(FONT_NAME, text, shape)
 
 
-def create_srnet_styled_text(original_image: np.ndarray, skeleton_text: np.ndarray) -> Image:
+def create_srnet_styled_image(original_image: np.ndarray, skeleton_text: np.ndarray) -> Image:
     """
     This function styles the text as original_image (styled text rendering on background image).
 
@@ -75,22 +75,23 @@ def create_styled_img(text: str, original_image: Image) -> Image:
     return: cutout image of the entity.
     """
     original_image = np.array(original_image)
-    skeleton_text = create_text_on_gray(text=text, shape=(original_image.shape[0], original_image.shape[1]))
+    skeleton_text = create_skeleton_text_image(text=text, shape=(original_image.shape[0], original_image.shape[1]))
 
     original_image = np.array(original_image)
     # normalize the image in the range from -1 to 1.
     skeleton_text = np.resize(skeleton_text, original_image.shape).astype(np.float32) / 127.5 - 1.0
     original_image = np.resize(original_image, original_image.shape).astype(np.float32) / 127.5 - 1.0
 
-    # predict o_f
-    styled_text = create_srnet_styled_text(original_image=original_image, skeleton_text=skeleton_text)
+    styled_text = create_srnet_styled_image(original_image=original_image, skeleton_text=skeleton_text)
 
     return styled_text
 
 
-def generate_path(input_path: str, output_path: str) -> None:
+def transform_passports(input_path: str, output_path: str) -> None:
     """
     Generate passport images.
+    input_path: Path where images are stored with markup.
+    output_path: Path where generated images will be saved.
 
     """
     Path(output_path).mkdir(parents=True, exist_ok=True)
@@ -110,21 +111,18 @@ def generate_path(input_path: str, output_path: str) -> None:
                 if not label_elem['label'] in ('officer_signature', 'signature', 'photo', 'passport'):
                     x_0, y_0, x_1, y_1 = int(label_elem['points'][0][0]), int(label_elem['points'][0][1]), \
                                          int(label_elem['points'][2][0]), int(label_elem['points'][2][1])
-                    # i_s from SRNet
+
                     original_image = img.crop(tuple([x_0, y_0, x_1, y_1]))
                     rotate = label_elem['label'] in ('number_group1', 'number_group2')
-
                     if rotate:
                         original_image = original_image.rotate(90, expand=True)
 
                     text = passport_content.get(label_elem['label'])
 
-                    # o_f from SRNet
                     styled_text = create_styled_img(text=text, original_image=original_image)
 
                     if rotate:
                         styled_text = styled_text.rotate(270, expand=True)
-
                     img.paste(styled_text, (x_0, y_0))
 
             img.save(str(Paths.outputs(output_path) / f'{datetime.now().strftime("%Y-%m-%d-%H.%M.%S.%f")}.png'))
@@ -171,4 +169,4 @@ if __name__ == "__main__":
     args = init_argparse().parse_args()
     if args.gpu != -1:
         os.environ['CUDA_VISIBLE_DEVICES'] = str(args.gpu)
-    generate_path(input_path=args.input_path, output_path=args.output_path)
+    transform_passports(input_path=args.input_path, output_path=args.output_path)
