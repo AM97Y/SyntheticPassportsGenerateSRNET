@@ -156,7 +156,7 @@ def init_argparse():
         '-m',
         nargs='?',
         help='Path to checkpoint to SRNet model.',
-        default='./model/iter-50000',
+        default='./model/final',
         type=str)
     parser.add_argument(
         '--gpu',
