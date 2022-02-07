@@ -23,9 +23,9 @@ This program allows to generate dataset of RF passports for machine learning  by
 
 ## Generation
 
-    1) Download and extract the model from [disk.](https://drive.google.com/file/d/1HkK4xaj3KGK12FdHImn7gCZsjHIMEDZn/view?usp=sharing)
+Download and extract the model from [disk.](https://drive.google.com/file/d/1HkK4xaj3KGK12FdHImn7gCZsjHIMEDZn/view?usp=sharing)
 
-    2) Run script: 
+    1) Run script: 
         python srnet_transform_passports.py  --input_path <input path with images + json markup> --output_path <output path> --model  <path with model> --gpu <number gpu>
 
 For more information launch `python srnet_transform_passports.py -h`. 
